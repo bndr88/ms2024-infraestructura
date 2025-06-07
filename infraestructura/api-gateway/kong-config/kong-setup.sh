@@ -80,6 +80,8 @@ echo "🔐 Activando plugin JWT en posts-service..."
 curl -s -X POST $KONG_URL/services/posts-service/plugins --data name=jwt
 fail_on_error $? "activar plugin JWT para posts"
 
-
+echo "🔐 Activando plugin JWT en paciente-service..."
+curl -s -X POST $KONG_URL/services/paciente-service/plugins --data name=jwt
+fail_on_error $? "activar plugin JWT para PACIENTES"
 
 echo "✅ ¡Kong configurado con éxito!"
