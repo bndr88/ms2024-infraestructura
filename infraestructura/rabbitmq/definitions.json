@@ -31,7 +31,13 @@
                 "durable": true
           },
           {
-                "name": "order-created",
+                "name": "paciente-creado",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "diagnostico-creado",
                 "vhost": "/",
                 "type": "fanout",
                 "durable": true
@@ -40,7 +46,8 @@
         "queues": [
                 {"name": "inventory-product-created", "vhost": "/", "durable": true},
                 {"name": "inventory-user-created", "vhost": "/", "durable": true},
-                {"name": "billing-order-created", "vhost": "/", "durable": true}
+                {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
+                {"name": "evaluacion-diagnostico-creado", "vhost": "/", "durable": true}
         ],
         "bindings": [
                 {
@@ -58,9 +65,16 @@
                         "routing_key": ""
                 },
                 {
-                        "source": "order-created",
+                        "source": "paciente-creado",
                         "vhost": "/",
-                        "destination": "billing-order-created",
+                        "destination": "contratacion-paciente-creado",
+                        "destination_type": "queue",
+                        "routing_key": ""
+                },
+                {
+                        "source": "diagnostico-creado",
+                        "vhost": "/",
+                        "destination": "evaluacion-diagnostico-creado",
                         "destination_type": "queue",
                         "routing_key": ""
                 }
