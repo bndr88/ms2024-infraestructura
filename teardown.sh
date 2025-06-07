@@ -24,6 +24,12 @@ if [ -f repos/evaluacion/docker-compose.yml ]; then
   (cd repos/evaluacion && docker-compose -f docker-compose-con-dockfile.yml down -v)
 fi
 
+# Microservicio Plan Alimenticio
+if [ -f repos/plan/docker-compose.yml ]; then
+  echo "🔻 Apagando Microservicio2..."
+  (cd repos/plan && docker-compose -f docker-compose.yml down -v)
+fi
+
 # Microservicio2
 #if [ -f Repos/Microservicio2/docker-compose.yml ]; then
 #  echo "🔻 Apagando Microservicio2..."
