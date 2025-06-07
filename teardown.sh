@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+echo "======================================"
+echo " 🛑 Deteniendo y eliminando servicios..."
+echo "======================================"
+
+# Infraestructura: Kong API Gateway
+if [ -f infraestructura/api-gateway/docker-compose.yml ]; then
+  echo "🔻 Apagando API Gateway (Kong)..."
+  docker-compose -f infraestructura/api-gateway/docker-compose.yml down -v
+fi
+
+# Infraestructura: RabbitMQ
+if [ -f infraestructura/rabbitmq/docker-compose.yml ]; then
+  echo "🔻 Apagando RabbitMQ..."
+  docker-compose -f infraestructura/rabbitmq/docker-compose.yml down -v
+fi
+
+# Microservicio Evaluación Nutiricional
+if [ -f repos/evaluacion/docker-compose.yml ]; then
+  echo "🔻 Apagando Microservicio Evaluación Nutricional..."
+  (cd repos/evaluacion && docker-compose -f docker-compose-con-dockfile.yml down -v)
+fi
+
+# Microservicio2
+#if [ -f Repos/Microservicio2/docker-compose.yml ]; then
+#  echo "🔻 Apagando Microservicio2..."
+#  (cd Repos/Microservicio2 && docker-compose down -v)
+#fi
+
+echo "✅ Todos los servicios han sido detenidos y limpiados con volúmenes eliminados."
+
