@@ -48,14 +48,22 @@
                 "/",
                 "type": "fanout",
                 "durable": true
+          },
+          {
+		"name": "labeled-package",
+		"vhost": "/",
+		"type": "fanout",
+		"durable": true
           }
+          
         ],
         "queues": [
                 {"name": "inventory-product-created", "vhost": "/", "durable": true},
                 {"name": "inventory-user-created", "vhost": "/", "durable": true},
                 {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
                 {"name": "evaluacion-diagnostico-creado", "vhost": "/", "durable": true},
-                {"name": "plan-diagnosticos-realizados", "vhost": "/", "durable": true}
+                {"name": "plan-diagnosticos-realizados", "vhost": "/", "durable": true},
+		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true}
         ],
         "bindings": [
                 {
@@ -92,6 +100,13 @@
                         "destination": "plan-diagnosticos-realizados", 
                         "destination_type": "queue", 
                         "routing_key": ""
-                }
+                },
+                {
+			"source": "labeled-package",
+			"vhost": "/",
+			"destination": "nutritionalkitchen-labeled-package",
+			"destination_type": "queue",
+			"routing_key": ""
+		}
         ]
 }
