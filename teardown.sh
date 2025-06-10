@@ -30,6 +30,12 @@ if [ -f repos/plan/docker-compose.yml ]; then
   (cd repos/plan && docker-compose -f docker-compose.yml down -v)
 fi
 
+# Microservicio Cocina
+if [ -f repos/cocina/docker-compose.yml ]; then
+  echo "🔻 Apagando Microservicio Cocina..."
+  (cd repos/cocina && docker-compose -f docker-compose.yml down -v)
+fi
+
 # Microservicio2
 #if [ -f Repos/Microservicio2/docker-compose.yml ]; then
 #  echo "🔻 Apagando Microservicio2..."
