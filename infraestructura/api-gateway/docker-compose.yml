@@ -64,14 +64,15 @@ services:
 #      - "1337:1337"
 
   login-service:
-    build: ./php-login
+    build: ./php-login    
     container_name: login-service
     networks:
       - kong-net
 
   kong-configurator:
     build:
-      context: ./kong-config
+      context: ./kong-config    
+    container_name: kong-configurator
     depends_on:
       - kong
     networks:
