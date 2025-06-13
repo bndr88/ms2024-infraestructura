@@ -54,13 +54,25 @@
 		"vhost": "/",
 		"type": "fanout",
 		"durable": true
+          },
+          {
+                "name": "patient-created-message",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "calendar-created-message",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
           }
-          
         ],
         "queues": [
                 {"name": "inventory-product-created", "vhost": "/", "durable": true},
                 {"name": "inventory-user-created", "vhost": "/", "durable": true},
                 {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
+                {"name": "contratacion-calendario-creado", "vhost": "/", "durable": true},
                 {"name": "evaluacion-diagnostico-realizado", "vhost": "/", "durable": true},
 		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true},
 		{"name": "nutritionalkitchen-recipe-created","vhost": "/","durable": true}
@@ -81,9 +93,16 @@
                         "routing_key": ""
                 },
                 {
-                        "source": "paciente-creado",
+                        "source": "pacient-created-message",
                         "vhost": "/",
                         "destination": "contratacion-paciente-creado",
+                        "destination_type": "queue",
+                        "routing_key": ""
+                },
+                {
+                        "source": "calendar-created-message",
+                        "vhost": "/",
+                        "destination": "contratacion-calendario-creado",
                         "destination_type": "queue",
                         "routing_key": ""
                 },
