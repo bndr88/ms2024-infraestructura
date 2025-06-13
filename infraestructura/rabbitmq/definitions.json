@@ -48,6 +48,12 @@
 		"vhost": "/",
 		"type": "fanout",
 		"durable": true
+          },
+	  {
+		"name": "recipe-created",
+		"vhost": "/",
+		"type": "fanout",
+		"durable": true
           }
           
         ],
@@ -56,7 +62,8 @@
                 {"name": "inventory-user-created", "vhost": "/", "durable": true},
                 {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
                 {"name": "evaluacion-diagnostico-realizado", "vhost": "/", "durable": true},
-		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true}
+		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true},
+		{"name": "nutritionalkitchen-recipe-created","vhost": "/","durable": true}
         ],
         "bindings": [
                 {
@@ -91,6 +98,13 @@
 			"source": "labeled-package",
 			"vhost": "/",
 			"destination": "nutritionalkitchen-labeled-package",
+			"destination_type": "queue",
+			"routing_key": ""
+		},
+		{
+			"source": "recipe-created",
+			"vhost": "/",
+			"destination": "nutritionalkitchen-recipe-created",
 			"destination_type": "queue",
 			"routing_key": ""
 		}
