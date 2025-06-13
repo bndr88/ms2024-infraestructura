@@ -46,21 +46,24 @@ echo "🛠️ Levantando microservicios..."
 # Construye y levanta cada microservicio desde su propio docker-compose
 (
   cd repos/evaluacion
+  echo "🔧 Instalando Composer..."
+  composer install 
   echo "🔧 Levantando Microservicio Evaluación Nutricional..."
-  docker-compose -f docker-compose-con-dockfile.yml up -d --build
+  # docker-compose -f docker-compose-con-dockfile.yml up -d --build
+  docker-compose up -d
 )
 
-(
-  cd repos/plan
-  echo "🔧 Levantando Microservicio Plan Alimenticio..."
-  docker-compose -f docker-compose.yml up -d --build
-)
+# (
+#   cd repos/plan
+#   echo "🔧 Levantando Microservicio Plan Alimenticio..."
+#   docker-compose -f docker-compose.yml up -d --build
+# )
  
-(
-  cd repos/cocina
-  echo "🔧 Levantando Microservicio Cocina..."
-  docker-compose -f docker-compose.yml up -d --build
-)
+# (
+#   cd repos/cocina
+#   echo "🔧 Levantando Microservicio Cocina..."
+#   docker-compose -f docker-compose.yml up -d --build
+# )
 
 #(
 #  cd Repos/Microservicio2
