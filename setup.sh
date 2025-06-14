@@ -53,17 +53,17 @@ echo "🛠️ Levantando microservicios..."
   docker-compose up -d
 )
 
-# (
-#   cd repos/plan
-#   echo "🔧 Levantando Microservicio Plan Alimenticio..."
-#   docker-compose -f docker-compose.yml up -d --build
-# )
+(
+  cd repos/plan
+  echo "🔧 Levantando Microservicio Plan Alimenticio..."
+  docker-compose -f docker-compose.yml up -d --build
+)
  
-# (
-#   cd repos/cocina
-#   echo "🔧 Levantando Microservicio Cocina..."
-#   docker-compose -f docker-compose.yml up -d --build
-# )
+ (
+   cd repos/cocina
+   echo "🔧 Levantando Microservicio Cocina..."
+   docker-compose -f docker-compose.yml up -d --build
+ )
 
 #(
 #  cd Repos/Microservicio2
