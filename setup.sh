@@ -3,6 +3,30 @@
 # Detiene el script si ocurre un error en cualquier línea
 set -e
 
+echo "🚀 Levantando infraestructura con Docker Compose..."
+sleep 2s
+# Crear red externa para Kong si no existe
+echo "🔌 Verificando red externa kong-net..."
+docker network inspect kong-net >/dev/null 2>&1 || docker network create kong-net
+
+echo "🔌 Verificando red externa nur-network..."
+docker network inspect nur-network >/dev/null 2>&1 || docker network create nur-network
+
+# Levanta el API Gateway con Kong
+echo "Levantando API GATEWAY..."
+docker-compose -f infraestructura/api-gateway/docker-compose.yml up -d --build 
+
+# Levanta RabbitMQ con su UI de administración
+echo "Levantando RABBITMQ..."
+docker-compose -f infraestructura/rabbitmq/docker-compose.yml up -d --build 
+
+# Levanta Consul 
+echo "Levantando Service Dsicovery (Consul)..."
+docker-compose -f infraestructura/consul/docker-compose.yml up -d --build 
+
+
+echo "✅ Infraestructura iniciada correctamente."
+
 echo "==============================="
 echo " 🧹 Limpiando carpeta Repos/..."
 echo "==============================="
@@ -29,24 +53,6 @@ git clone --branch $RAMA_EVALUACION $REPO_EVALUACION repos/evaluacion
 git clone --branch $RAMA_PLAN_ALIMENTICIO $REPO_PLAN_ALIMENTICIO repos/plan
 git clone $REPO_COCINA repos/cocina
 #git clone $REPO_MICROSERVICIO2 Repos/Microservicio2
-
-echo "🚀 Levantando infraestructura con Docker Compose..."
-sleep 2s
-# Levanta el API Gateway con Kong
-echo "Levantando API GATEWAY..."
-docker-compose -f infraestructura/api-gateway/docker-compose.yml up -d --build 
-
-# Levanta RabbitMQ con su UI de administración
-echo "Levantando RABBITMQ..."
-docker-compose -f infraestructura/rabbitmq/docker-compose.yml up -d --build 
-
-# Levanta Consul 
-echo "Levantando Service Dsicovery (Consul)..."
-docker-compose -f infraestructura/consul/docker-compose.yml up -d --build 
-
-
-echo "✅ Infraestructura iniciada correctamente."
-
 
 echo "🛠️ Levantando microservicios..."
 sleep 5s

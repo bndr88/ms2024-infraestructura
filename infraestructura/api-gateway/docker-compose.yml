@@ -40,9 +40,19 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      #Para activar plugin de uso de service-provider
+      KONG_LOG_LEVEL: debug
+      KONG_SERVICE_DISCOVERY: "on"
+      KONG_SERVICE_DISCOVERY_PROVIDER: "consul"
+      KONG_CONSUL_PROTOCOL: "http"
+      KONG_CONSUL_HOST: "consul-server:8500"
+      KONG_CONSUL_KV_PATH: "kong/services"
+      KONG_CONSUL_TAGS: "kong"
     ports:
-      - "8000:8000"   # Proxy
-      - "8001:8001"   # Admin API
+      - "8000:8000"   # HTTP Pública Proxy
+      - "8001:8001"   # Admin API sin TLS
+      - "8444:8444"   # Admin API con TLS   
+      - "8443:8443"   # HTTPS Pública Proxy
     networks:
       - kong-net
 
@@ -80,5 +90,6 @@ services:
 
 networks:
   kong-net:
+    external: true
 volumes:
   kong-db-data:
