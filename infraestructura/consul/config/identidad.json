@@ -1,0 +1,12 @@
+{
+  "service": {
+    "ID": "identidad",
+    "Name": "identidad",
+    "Address": "identidad",
+    "Port": 8082,
+    "Check": {
+      "HTTP": "http://localhost:8082/",
+      "Interval": "10s"
+    }
+  }
+}

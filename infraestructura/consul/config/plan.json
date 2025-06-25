@@ -1,0 +1,12 @@
+{
+  "service": {
+    "ID": "plan",
+  "Name": "plan",
+  "Address": "plan",
+  "Port": 5002,
+  "Check": {
+    "HTTP": "http://localhost:5002",
+    "Interval": "10s"
+  }
+  }
+}
