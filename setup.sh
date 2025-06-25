@@ -26,28 +26,38 @@ echo "🐙 Clonando repositorios desde GitHub..."
 
 # Clona los repositorios especificados en el archivo .env
 git clone --branch $RAMA_EVALUACION $REPO_EVALUACION repos/evaluacion
-git clone $REPO_PLAN_ALIMENTICIO repos/plan
+git clone --branch $RAMA_PLAN_ALIMENTICIO $REPO_PLAN_ALIMENTICIO repos/plan
 git clone $REPO_COCINA repos/cocina
 #git clone $REPO_MICROSERVICIO2 Repos/Microservicio2
 
 echo "🚀 Levantando infraestructura con Docker Compose..."
-
+sleep 2s
 # Levanta el API Gateway con Kong
+echo "Levantando API GATEWAY..."
 docker-compose -f infraestructura/api-gateway/docker-compose.yml up -d --build 
 
 # Levanta RabbitMQ con su UI de administración
+echo "Levantando RABBITMQ..."
 docker-compose -f infraestructura/rabbitmq/docker-compose.yml up -d --build 
+
+# Levanta Consul 
+echo "Levantando Service Dsicovery (Consul)..."
+docker-compose -f infraestructura/consul/docker-compose.yml up -d --build 
+
 
 echo "✅ Infraestructura iniciada correctamente."
 
 
 echo "🛠️ Levantando microservicios..."
-
+sleep 5s
 # Construye y levanta cada microservicio desde su propio docker-compose
 (
   cd repos/evaluacion
+  echo "🔧 Instalando Composer..."
+  composer install 
   echo "🔧 Levantando Microservicio Evaluación Nutricional..."
-  docker-compose -f docker-compose-con-dockfile.yml up -d --build
+  # docker-compose -f docker-compose-con-dockfile.yml up -d --build
+  docker-compose up -d
 )
 
 (
@@ -56,11 +66,11 @@ echo "🛠️ Levantando microservicios..."
   docker-compose -f docker-compose.yml up -d --build
 )
  
-(
-  cd repos/cocina
-  echo "🔧 Levantando Microservicio Cocina..."
-  docker-compose -f docker-compose.yml up -d --build
-)
+ #(
+   #cd repos/cocina
+   #echo "🔧 Levantando Microservicio Cocina..."
+   #docker-compose -f docker-compose.yml up -d --build
+ #)
 
 #(
 #  cd Repos/Microservicio2

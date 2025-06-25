@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "6e4f578a-5020-49d3-ae58-5cc8f7b4f93e",
+		"name": "Mod6 Activ. Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39273356"
+	},
+	"item": [
+		{
+			"name": "1. Generar el Bearer Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Crear Paciente",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let uuid = require('uuid');\r",
+							"let guidGenerada = uuid.v4();\r",
+							"pm.environment.set(\"guidPrueba\", guidGenerada);\r",
+							"\r",
+							"// Función para generar una fecha de nacimiento aleatoria\r",
+							"function generarFechaNacimiento() {\r",
+							"    // Definir el rango de años (por ejemplo, entre 18 y 60 años atrás)\r",
+							"    var hoy = new Date();\r",
+							"    var edadMinima = 18;\r",
+							"    var edadMaxima = 60;\r",
+							"\r",
+							"    // Calcular los años aleatorios entre los límites\r",
+							"    var anioAleatorio = hoy.getFullYear() - (Math.floor(Math.random() * (edadMaxima - edadMinima + 1)) + edadMinima);\r",
+							"\r",
+							"    // Generar una fecha aleatoria dentro de ese año\r",
+							"    var mesAleatorio = Math.floor(Math.random() * 12); // Mes entre 0 y 11\r",
+							"    var diaAleatorio = Math.floor(Math.random() * 31) + 1; // Día entre 1 y 31\r",
+							"\r",
+							"    // Crear una fecha válida\r",
+							"    var fechaNacimiento = new Date(anioAleatorio, mesAleatorio, diaAleatorio);\r",
+							"\r",
+							"    // Asegurarse de que la fecha es válida (si no lo es, corregirla)\r",
+							"    if (fechaNacimiento.getDate() !== diaAleatorio) {\r",
+							"        fechaNacimiento = new Date(anioAleatorio, mesAleatorio, 0); // Último día del mes\r",
+							"    }\r",
+							"\r",
+							"    // Obtener la fecha en formato YYYY-MM-DD\r",
+							"    var anio = fechaNacimiento.getFullYear();\r",
+							"    var mes = ('0' + (fechaNacimiento.getMonth() + 1)).slice(-2); // Mes con 2 dígitos\r",
+							"    var dia = ('0' + fechaNacimiento.getDate()).slice(-2); // Día con 2 dígitos\r",
+							"\r",
+							"    // Devolver la fecha en formato YYYY-MM-DD\r",
+							"    return anio + '-' + mes + '-' + dia;\r",
+							"}\r",
+							"var fechaNacimiento = generarFechaNacimiento();\r",
+							"\r",
+							"pm.environment.set('fechaNacimientoAleatorio', fechaNacimiento);\r",
+							"\r",
+							"console.log('Fecha de nacimiento aleatoria generada: ' + fechaNacimiento);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST Request Existoso\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El ID paciente registrado tiene el formato correcto\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"    var idPaciente = jsonData[\"ID paciente registrado\"];\r",
+							"    pm.expect(idPaciente).to.match(regex); \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{guidPrueba}}\",  \r\n  \"nombre\": \"{{$randomFullName}}\",\r\n  \"fechaNacimiento\": \"{{fechaNacimientoAleatorio}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/paciente/add"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Crear Tipo Diagnostico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST Request Existoso\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"descripcion\": \"Recurrente\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/tipoDiag/add"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Agregar Diagnostico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST Request Existoso\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El ID paciente registrado tiene el formato correcto\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"    var idPaciente = jsonData[\"ID diagnóstico registrado\"];\r",
+							"    pm.expect(idPaciente).to.match(regex); \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idPaciente\": \"3ab75967-e9f0-4a15-a784-73a16f86ddfe\",\r\n    \"peso\": 70.5,\r\n    \"altura\": 1.75,\r\n    \"descripcion\": \"Esta teniendo un gran avance para ser su segundo control 66 \",\r\n    \"estadoDiagnostico\": \"Pendiente\",\r\n    \"idTipoDiagnostico\": \"55c9701d-2d6d-44ff-aad7-9ba9e01cc535\",\r\n    \"fechaDiagnostico\": \"2024-12-18\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/diagnostico/add"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Probar Registro Outbox",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/test-outbox"
+			},
+			"response": []
+		}
+	]
+}

@@ -4,10 +4,12 @@ services:
     container_name: consul-server
     ports:
       - "8500:8500"
+    volumes:
+      - ./config:/consul/config
     networks:
-      - consul-net
-    command: agent -dev -client=0.0.0.0
+      - evaluacion_nur-network
+    command: agent -dev -client=0.0.0.0 -config-dir=/consul/config
 
 networks:
-  consul-net:
-    driver: bridge
+  evaluacion_nur-network:
+    external: true
