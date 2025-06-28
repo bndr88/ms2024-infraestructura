@@ -42,7 +42,7 @@
                 "/",
                 "type": "fanout",
                 "durable": true
-          },
+          }, 
           {
 		"name": "labeled-package",
 		"vhost": "/",
