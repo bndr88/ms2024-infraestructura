@@ -16,13 +16,17 @@ docker network inspect nur-network >/dev/null 2>&1 || docker network create nur-
 echo "Levantando API GATEWAY..."
 docker-compose -f infraestructura/api-gateway/docker-compose.yml up -d --build 
 
-# Levanta RabbitMQ con su UI de administración
-echo "Levantando RABBITMQ..."
-docker-compose -f infraestructura/rabbitmq/docker-compose.yml up -d --build 
-
 # Levanta Consul 
 echo "Levantando Service Dsicovery (Consul)..."
 docker-compose -f infraestructura/consul/docker-compose.yml up -d --build 
+
+# Levanta el sincronizador entre Consul y Kong
+echo "Levantando sincronizador Consul -> Kong..."
+docker-compose -f infraestructura/consul-to-kong/docker-compose.yml up -d --build
+
+# Levanta RabbitMQ con su UI de administración
+echo "Levantando RABBITMQ..."
+docker-compose -f infraestructura/rabbitmq/docker-compose.yml up -d --build 
 
 
 echo "✅ Infraestructura iniciada correctamente."
@@ -51,7 +55,7 @@ echo "🐙 Clonando repositorios desde GitHub..."
 # Clona los repositorios especificados en el archivo .env
 git clone --branch $RAMA_EVALUACION $REPO_EVALUACION repos/evaluacion
 git clone --branch $RAMA_PLAN_ALIMENTICIO $REPO_PLAN_ALIMENTICIO repos/plan
-git clone $REPO_COCINA repos/cocina
+#git clone $REPO_COCINA repos/cocina
 #git clone $REPO_MICROSERVICIO2 Repos/Microservicio2
 
 echo "🛠️ Levantando microservicios..."
@@ -66,11 +70,11 @@ sleep 5s
   docker-compose up -d
 )
 
-(
-  cd repos/plan
-  echo "🔧 Levantando Microservicio Plan Alimenticio..."
-  docker-compose -f docker-compose.yml up -d --build
-)
+ (
+   cd repos/plan
+   echo "🔧 Levantando Microservicio Plan Alimenticio..."
+   docker-compose -f docker-compose.yml up -d --build
+ )
  
  #(
    #cd repos/cocina
