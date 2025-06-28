@@ -1,0 +1,112 @@
+{
+        "vhosts": [{"name": "/"}],
+        "users": [
+        {
+                "name": "storeUser",
+                "password": "storeUserPassword",
+                "tags": "administrator"
+        }
+        ],
+        "permissions": [
+        {
+                "user": "storeUser",
+                "vhost": "/",
+                "configure": ".*",
+                "write": ".*",
+                "read": ".*"
+        }
+        ],
+        "parameters": [],
+        "exchanges": [
+          {
+                "name": "product-created",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "user-created",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "paciente-creado",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "diagnostico-realizado",
+                "vhost": 
+                "/",
+                "type": "fanout",
+                "durable": true
+          }, 
+          {
+		"name": "labeled-package",
+		"vhost": "/",
+		"type": "fanout",
+		"durable": true
+          },
+	  {
+		"name": "recipe-created",
+		"vhost": "/",
+		"type": "fanout",
+		"durable": true
+          }
+          
+        ],
+        "queues": [
+                {"name": "inventory-product-created", "vhost": "/", "durable": true},
+                {"name": "inventory-user-created", "vhost": "/", "durable": true},
+                {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
+                {"name": "evaluacion-diagnostico-realizado", "vhost": "/", "durable": true},
+		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true},
+		{"name": "nutritionalkitchen-recipe-created","vhost": "/","durable": true}
+        ],
+        "bindings": [
+                {
+                        "source": "product-created", 
+                        "vhost": "/", 
+                        "destination": "inventory-product-created", 
+                        "destination_type": "queue", 
+                        "routing_key": ""
+                },
+                {
+                        "source": "user-created", 
+                        "vhost": "/", 
+                        "destination": "inventory-user-created", 
+                        "destination_type": "queue", 
+                        "routing_key": ""
+                },
+                {
+                        "source": "paciente-creado",
+                        "vhost": "/",
+                        "destination": "contratacion-paciente-creado",
+                        "destination_type": "queue",
+                        "routing_key": ""
+                },
+                {
+                        "source": "diagnostico-realizado", 
+                        "vhost": "/", 
+                        "destination": "evaluacion-diagnostico-realizado", 
+                        "destination_type": "queue", 
+                        "routing_key": ""
+                },
+                {
+			"source": "labeled-package",
+			"vhost": "/",
+			"destination": "nutritionalkitchen-labeled-package",
+			"destination_type": "queue",
+			"routing_key": ""
+		},
+		{
+			"source": "recipe-created",
+			"vhost": "/",
+			"destination": "nutritionalkitchen-recipe-created",
+			"destination_type": "queue",
+			"routing_key": ""
+		}
+        ]
+}
