@@ -30,37 +30,12 @@ curl -s -X POST $KONG_URL/routes \
   --data methods[]=POST
 fail_on_error $? "crear ruta login"
 
-echo "🔧 Creando servicio y ruta para users..."
-curl -s -X POST $KONG_URL/services --data name=users-service --data url=https://jsonplaceholder.typicode.com/users
-fail_on_error $? "crear servicio users"
+# curl -i -X POST $KONG_URL/routes \
+#   --data name=evaluacion-route \
+#   --data paths[]=/evaluacion \
+#   --data service.name=evaluacion
 
-curl -s -X POST $KONG_URL/routes \
-  --data service.name=users-service \
-  --data paths[]=/api/users
-fail_on_error $? "crear ruta users"
-
-echo "🔧 Creando servicio y ruta para posts..."
-curl -s -X POST $KONG_URL/services --data name=posts-service --data url=https://jsonplaceholder.typicode.com/posts
-fail_on_error $? "crear servicio posts"
-
-curl -s -X POST $KONG_URL/routes \
-  --data service.name=posts-service \
-  --data paths[]=/api/posts
-fail_on_error $? "crear ruta posts"
-
-echo "🔧 Creando servicio y ruta para paciente..."
-curl -s -X POST $KONG_URL/services \
-  --data name=paciente-service \
-  --data url=http://host.docker.internal:8081/
-fail_on_error $? "crear servicio paciente"
-
-curl -s -X POST $KONG_URL/routes \
-  --data service.name=paciente-service \
-  --data paths[]=/paciente/add \
-  --data strip_path=false \
-  --data methods[]=POST
-fail_on_error $? "crear ruta paciente"
-
+# ----- Agregando seguridad con JWT ------
 echo "👤 Creando consumer JWT..."
 curl -s -X POST $KONG_URL/consumers --data username=admin
 fail_on_error $? "crear consumer"
@@ -72,16 +47,5 @@ curl -s -X POST $KONG_URL/consumers/admin/jwt \
   --data secret=supersecretkey
 fail_on_error $? "crear credencial JWT"
 
-echo "🔐 Activando plugin JWT en users-service..."
-curl -s -X POST $KONG_URL/services/users-service/plugins --data name=jwt
-fail_on_error $? "activar plugin JWT para users"
-
-echo "🔐 Activando plugin JWT en posts-service..."
-curl -s -X POST $KONG_URL/services/posts-service/plugins --data name=jwt
-fail_on_error $? "activar plugin JWT para posts"
-
-echo "🔐 Activando plugin JWT en paciente-service..."
-curl -s -X POST $KONG_URL/services/paciente-service/plugins --data name=jwt
-fail_on_error $? "activar plugin JWT para PACIENTES"
-
+echo "\n";
 echo "✅ ¡Kong configurado con éxito!"

@@ -1,0 +1,13 @@
+{
+  "service": {
+    "ID": "evaluacion",
+    "Name": "evaluacion",
+    "Address": "nur-app",
+    "Port": 8081,
+    "Check": {
+      "HTTP": "http://nur-app/hola",
+      "Interval": "10s",
+      "Timeout": "1s"
+    }
+  }
+}

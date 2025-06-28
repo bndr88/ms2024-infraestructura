@@ -40,9 +40,12 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_LOG_LEVEL: debug
     ports:
-      - "8000:8000"   # Proxy
-      - "8001:8001"   # Admin API
+      - "8000:8000"   # HTTP Pública Proxy
+      - "8001:8001"   # Admin API sin TLS
+      - "8444:8444"   # Admin API con TLS   
+      - "8443:8443"   # HTTPS Pública Proxy
     networks:
       - kong-net
 
@@ -80,5 +83,6 @@ services:
 
 networks:
   kong-net:
+    external: true
 volumes:
   kong-db-data:

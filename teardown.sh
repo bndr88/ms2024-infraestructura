@@ -18,6 +18,18 @@ if [ -f infraestructura/rabbitmq/docker-compose.yml ]; then
   docker-compose -f infraestructura/rabbitmq/docker-compose.yml down -v
 fi
 
+# Infraestructura: Consul
+if [ -f infraestructura/consul/docker-compose.yml ]; then
+  echo "🔻 Apagando Consul..."
+  docker-compose -f infraestructura/consul/docker-compose.yml down -v
+fi
+
+# Infraestructura: consul-to-kong
+if [ -f infraestructura/consul/docker-compose.yml ]; then
+  echo "🔻 Apagando consul-to-kong..."
+  docker-compose -f infraestructura/consul-to-kong/docker-compose.yml down -v
+fi
+
 # Microservicio Evaluación Nutiricional
 if [ -f repos/evaluacion/docker-compose.yml ]; then
   echo "🔻 Apagando Microservicio Evaluación Nutricional..."
