@@ -7,9 +7,12 @@ services:
     volumes:
       - ./config:/consul/config
     networks:
-      - evaluacion_nur-network
+      - nur-network
+      - kong-net
     command: agent -dev -client=0.0.0.0 -config-dir=/consul/config
 
 networks:
-  evaluacion_nur-network:
+  nur-network:
+    external: true  
+  kong-net:
     external: true

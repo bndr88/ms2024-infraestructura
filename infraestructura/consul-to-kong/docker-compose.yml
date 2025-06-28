@@ -1,0 +1,14 @@
+services:
+  consul-to-kong:
+    build: .
+    container_name: consul-to-kong
+    networks:
+      - nur-network
+      - kong-net
+    restart: on-failure
+
+networks:
+  nur-network:
+    external: true
+  kong-net:
+    external: true
