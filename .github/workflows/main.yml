@@ -20,4 +20,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            bash /home/grupo4/setup.sh
+            bash /home/grupo4/infraestructura/setup.sh
