@@ -47,6 +47,7 @@ services:
       - "8444:8444"   # Admin API con TLS   
       - "8443:8443"   # HTTPS Pública Proxy
     networks:
+      - nur-network
       - kong-net
 
 #  konga:
@@ -83,6 +84,8 @@ services:
 
 networks:
   kong-net:
+    external: true
+  nur-network:
     external: true
 volumes:
   kong-db-data:
