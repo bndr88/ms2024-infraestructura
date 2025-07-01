@@ -57,8 +57,8 @@ foreach ($services as $serviceName => $tags) {
     }
 
     $instance = $instances[0];
-    //$host = $instance['ServiceAddress'] ?: $instance['Address'];
-    $host = "host.docker.internal";
+    $host = $instance['ServiceAddress'] ?: $instance['Address'];
+    //$host = "host.docker.internal";
     $port = $instance['ServicePort'];
     $serviceUrl = "http://$host:$port";
 
