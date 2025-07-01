@@ -3,7 +3,7 @@
     "ID": "evaluacion",
     "Name": "evaluacion",
     "Address": "nur-app",
-    "Port": 8081,
+    "Port": 80,
     "Check": {
       "HTTP": "http://nur-app/hola",
       "Interval": "10s",
