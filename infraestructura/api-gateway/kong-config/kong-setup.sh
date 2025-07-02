@@ -20,15 +20,15 @@ done
 
 echo "🚀 Kong disponible. Iniciando configuración..."
 
-echo "🔧 Creando servicio y ruta para login..."
-curl -s -X POST $KONG_URL/services --data name=login-service --data url=http://login-service/
-fail_on_error $? "crear servicio login"
+# echo "🔧 Creando servicio y ruta para login..."
+# curl -s -X POST $KONG_URL/services --data name=login-service --data url=http://login-service/
+# fail_on_error $? "crear servicio login"
 
-curl -s -X POST $KONG_URL/routes \
-  --data service.name=login-service \
-  --data paths[]=/api/login \
-  --data methods[]=POST
-fail_on_error $? "crear ruta login"
+# curl -s -X POST $KONG_URL/routes \
+#   --data service.name=login-service \
+#   --data paths[]=/api/login \
+#   --data methods[]=POST
+# fail_on_error $? "crear ruta login"
 
 # curl -i -X POST $KONG_URL/routes \
 #   --data name=evaluacion-route \

@@ -257,6 +257,9 @@ function pluginJWTExiste($kongUrl, $serviceName): bool {
 }
 
 function agregarPluginJWT($kongUrl, $serviceName): void {
+    if ($serviceName === 'identidad') {
+        return;
+    }
     if (pluginJWTExiste($kongUrl, $serviceName)) {
         echo "🔐 El plugin JWT ya está habilitado en el servicio '$serviceName'.\n";
         return;

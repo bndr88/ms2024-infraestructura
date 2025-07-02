@@ -12,6 +12,27 @@ docker network inspect kong-net >/dev/null 2>&1 || docker network create kong-ne
 echo "🔌 Verificando red externa nur-network..."
 docker network inspect nur-network >/dev/null 2>&1 || docker network create nur-network
 
+echo "==============================="
+echo " 🧹 Limpiando carpeta Repos/..."
+echo "==============================="
+
+# Borra todo el contenido de la carpeta Repos/ sin eliminar la carpeta en sí
+rm -rf ./Repos/*
+mkdir -p ./Repos  # Asegura que la carpeta Repos exista
+source .env
+
+echo "📁 Creando carpetas necesarias para los microservicios..."
+# Crea carpetas vacías para los microservicios
+mkdir -p ./Repos/identidad
+mkdir -p ./Repos/cocina
+mkdir -p ./Repos/contratacion
+mkdir -p ./Repos/evaluacion
+mkdir -p ./Repos/plan
+
+echo "Levantando Servicio Identidad..."
+git clone --branch $RAMA_IDENTIDAD $REPO_IDENTIDAD ./Repos/identidad
+docker-compose -f ./Repos/identidad/docker-compose.yml up -d --build 
+
 # Levanta el API Gateway con Kong
 echo "Levantando API GATEWAY..."
 docker-compose -f ./infraestructura/api-gateway/docker-compose.yml up -d --build 
@@ -31,24 +52,7 @@ docker-compose -f ./infraestructura/rabbitmq/docker-compose.yml up -d --build
 
 echo "✅ Infraestructura iniciada correctamente."
 
-echo "==============================="
-echo " 🧹 Limpiando carpeta Repos/..."
-echo "==============================="
-
-# Borra todo el contenido de la carpeta Repos/ sin eliminar la carpeta en sí
-rm -rf ./Repos/*
-mkdir -p ./Repos  # Asegura que la carpeta Repos exista
-
-echo "📁 Creando carpetas necesarias para los microservicios..."
-
-# Crea carpetas vacías para los microservicios
-mkdir -p ./Repos/cocina
-mkdir -p ./Repos/contratacion
-mkdir -p ./Repos/evaluacion
-mkdir -p ./Repos/plan
-
 echo "Clonando repositorios..."
-source .env
 
 echo "🐙 Clonando repositorios desde GitHub..."
 
