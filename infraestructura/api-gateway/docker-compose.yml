@@ -67,11 +67,11 @@ services:
 #    ports:
 #      - "1337:1337"
 
-  login-service:
-    build: ./php-login    
-    container_name: login-service
-    networks:
-      - kong-net
+  # login-service:
+  #   build: ./php-login    
+  #   container_name: login-service
+  #   networks:
+  #     - kong-net
 
   kong-configurator:
     build:
