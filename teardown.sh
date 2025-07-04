@@ -25,13 +25,19 @@ if [ -f infraestructura/consul/docker-compose.yml ]; then
 fi
 
 # Infraestructura: consul-to-kong
-if [ -f infraestructura/consul/docker-compose.yml ]; then
+if [ -f infraestructura/consul-to-kong/docker-compose.yml ]; then
   echo "🔻 Apagando consul-to-kong..."
   docker-compose -f infraestructura/consul-to-kong/docker-compose.yml down -v
 fi
 
+# Infraestructura: Observabilidad
+if [ -f infraestructura/observabilidad/docker-compose.observabilidad.yml ]; then
+  echo "🔻 Apagando observabilidad..."
+  docker-compose -f infraestructura/observabilidad/docker-compose.observabilidad.yml down -v
+fi
+
 # Microservicio Identidad
-if [ -f Repos/evaluacion/docker-compose.yml ]; then
+if [ -f Repos/identidad/docker-compose.yml ]; then
   echo "🔻 Apagando Microservicio Identidad..."
   (cd Repos/identidad && docker-compose down -v)
 fi
