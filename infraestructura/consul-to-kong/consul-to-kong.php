@@ -57,8 +57,8 @@ foreach ($services as $serviceName => $tags) {
     }
 
     $instance = $instances[0];
-    //$host = $instance['ServiceAddress'] ?: $instance['Address'];
-    $host = "host.docker.internal";
+    $host = $instance['ServiceAddress'] ?: $instance['Address'];
+    //$host = "host.docker.internal";
     $port = $instance['ServicePort'];
     $serviceUrl = "http://$host:$port";
 
@@ -257,6 +257,9 @@ function pluginJWTExiste($kongUrl, $serviceName): bool {
 }
 
 function agregarPluginJWT($kongUrl, $serviceName): void {
+    if ($serviceName === 'identidad') {
+        return;
+    }
     if (pluginJWTExiste($kongUrl, $serviceName)) {
         echo "🔐 El plugin JWT ya está habilitado en el servicio '$serviceName'.\n";
         return;

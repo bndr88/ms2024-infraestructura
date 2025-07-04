@@ -30,22 +30,28 @@ if [ -f infraestructura/consul/docker-compose.yml ]; then
   docker-compose -f infraestructura/consul-to-kong/docker-compose.yml down -v
 fi
 
+# Microservicio Identidad
+if [ -f Repos/evaluacion/docker-compose.yml ]; then
+  echo "🔻 Apagando Microservicio Identidad..."
+  (cd Repos/identidad && docker-compose down -v)
+fi
+
 # Microservicio Evaluación Nutiricional
-if [ -f repos/evaluacion/docker-compose.yml ]; then
+if [ -f Repos/evaluacion/docker-compose.yml ]; then
   echo "🔻 Apagando Microservicio Evaluación Nutricional..."
-  (cd repos/evaluacion && docker-compose -f docker-compose-con-dockfile.yml down -v)
+  (cd Repos/evaluacion && docker-compose down -v)
 fi
 
 # Microservicio Plan Alimenticio
-if [ -f repos/plan/docker-compose.yml ]; then
+if [ -f Repos/plan/docker-compose.yml ]; then
   echo "🔻 Apagando Microservicio2..."
-  (cd repos/plan && docker-compose -f docker-compose.yml down -v)
+  (cd Repos/plan && docker-compose -f docker-compose.yml down -v)
 fi
 
 # Microservicio Cocina
-if [ -f repos/cocina/docker-compose.yml ]; then
+if [ -f Repos/cocina/docker-compose.yml ]; then
   echo "🔻 Apagando Microservicio Cocina..."
-  (cd repos/cocina && docker-compose -f docker-compose.yml down -v)
+  (cd Repos/cocina && docker-compose -f docker-compose.yml down -v)
 fi
 
 # Microservicio2
