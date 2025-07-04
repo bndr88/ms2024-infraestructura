@@ -49,6 +49,9 @@ docker-compose -f ./infraestructura/consul-to-kong/docker-compose.yml up -d --bu
 echo "Levantando RABBITMQ..."
 docker-compose -f ./infraestructura/rabbitmq/docker-compose.yml up -d --build 
 
+# Levanta las herramientas para Observabilidad
+echo "Levantando Todo Para Observabilidad..."
+docker compose -f ./infraestructura/observabilidad/docker-compose.observabilidad.yml up -d
 
 echo "✅ Infraestructura iniciada correctamente."
 

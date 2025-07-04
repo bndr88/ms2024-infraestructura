@@ -1,12 +1,12 @@
 {
   "service": {
     "ID": "plan",
-  "Name": "plan",
-  "Address": "plan",
-  "Port": 5002,
-  "Check": {
-    "HTTP": "http://localhost:5002",
-    "Interval": "10s"
-  }
+    "Name": "plan",
+    "Address": "nutritionaladvice-microservice",
+    "Port": 5000,
+    "Check": {
+      "HTTP": "http://nutritionaladvice-microservice:5000/health",
+      "Interval": "10s"
+    }
   }
 }
