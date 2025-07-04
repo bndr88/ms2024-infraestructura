@@ -7,7 +7,13 @@ services:
       - "15672:15672" # UI de gestión
     volumes:
       - ./definitions.json:/etc/rabbitmq/definitions.json
+    networks:      
+      - nur-network
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbitmq_management load_definitions \"/etc/rabbitmq/definitions.json\""
+
+networks:
+  nur-network:
+    external: true
