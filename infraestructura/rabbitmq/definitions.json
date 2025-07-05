@@ -85,14 +85,14 @@
         "queues": [
                 {"name": "inventory-product-created", "vhost": "/", "durable": true},
                 {"name": "inventory-user-created", "vhost": "/", "durable": true},
-                {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
+                {"name": "PacienteCreado", "vhost": "/", "durable": true},
                 {"name": "evaluacion-diagnostico-realizado", "vhost": "/", "durable": true},
 		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true},
 		{"name": "RecipeCreated","vhost": "/","durable": true},
 		{"name": "MealPlanCreated","vhost": "/","durable": true},
-                {"name": "CalendarCreatedMessage", "vhost": "/", "durable": true},
-                {"name": "DeliveryDayUpdatedMessage", "vhost": "/","durable": true},
-                {"name": "DeliveryDayDeletedMessage", "vhost": "/","durable": true}
+                {"name": "CalendarCreated", "vhost": "/", "durable": true},
+                {"name": "DeliberyUpdate", "vhost": "/","durable": true},
+                {"name": "DeliberyDelete", "vhost": "/","durable": true}
                 
         ],
         "bindings": [
@@ -113,7 +113,7 @@
                 {
                         "source": "paciente-creado",
                         "vhost": "/",
-                        "destination": "contratacion-paciente-creado",
+                        "destination": "PacienteCreado",
                         "destination_type": "queue",
                         "routing_key": ""
                 },
@@ -148,21 +148,21 @@
                 {
                         "source": "calendar-created",
                         "vhost": "/",
-                        "destination": "CalendarCreatedMessage",
+                        "destination": "CalendarCreated",
                         "destination_type": "queue",
                         "routing_key": ""
                 },
                 {
-                        "vhost": "/",
-                        "destination": "DeliveryDayUpdatedMessage",
-                        "destination_type": "queue",
                         "source": "delibery-update",
+                        "vhost": "/",
+                        "destination": "DeliberyUpdate",
+                        "destination_type": "queue",
                         "routing_key": ""
                 },
                 {
                         "source": "delibery-delete",
                         "vhost": "/",
-                        "destination": "DeliveryDayDeletedMessage",
+                        "destination": "DeliberyDelete",
                         "destination_type": "queue",
                         "routing_key": ""
                 }
