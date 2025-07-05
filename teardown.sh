@@ -31,9 +31,9 @@ if [ -f infraestructura/consul-to-kong/docker-compose.yml ]; then
 fi
 
 # Infraestructura: Observabilidad
-if [ -f infraestructura/observabilidad/docker-compose.observabilidad.yml ]; then
+if [ -f infraestructura/observabilidad/docker-compose.yml ]; then
   echo "🔻 Apagando observabilidad..."
-  docker-compose -f infraestructura/observabilidad/docker-compose.observabilidad.yml down -v
+  docker-compose -f infraestructura/observabilidad/docker-compose.yml down -v
 fi
 
 # Microservicio Identidad
@@ -50,7 +50,7 @@ fi
 
 # Microservicio Plan Alimenticio
 if [ -f Repos/plan/docker-compose.yml ]; then
-  echo "🔻 Apagando Microservicio2..."
+  echo "🔻 Apagando Microservicio Plan Alimenticio..."
   (cd Repos/plan && docker-compose -f docker-compose.yml down -v)
 fi
 
@@ -61,11 +61,24 @@ if [ -f Repos/cocina/docker-compose.yml ]; then
 fi
 
 # Microservicio Delivery
+<<<<<<< Updated upstream
 if [ -f Repos/delivery/docker-compose.yml ]; then
+=======
+if [ -f Repos/cocina/docker-compose.yml ]; then
+>>>>>>> Stashed changes
   echo "🔻 Apagando Microservicio Delivery..."
   (cd Repos/delivery && docker-compose -f docker-compose.yml down -v)
 fi
 
+<<<<<<< Updated upstream
+=======
+# Microservicio Delivery
+if [ -f Repos/contratacion/docker-compose.yml ]; then
+  echo "🔻 Apagando Microservicio Contrato..."
+  (cd Repos/contratacion && docker-compose -f docker-compose.yml down -v)
+fi
+
+>>>>>>> Stashed changes
 # Microservicio2
 #if [ -f Repos/Microservicio2/docker-compose.yml ]; then
 #  echo "🔻 Apagando Microservicio2..."
