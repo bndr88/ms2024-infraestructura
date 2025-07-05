@@ -61,24 +61,17 @@ if [ -f Repos/cocina/docker-compose.yml ]; then
 fi
 
 # Microservicio Delivery
-<<<<<<< Updated upstream
-if [ -f Repos/delivery/docker-compose.yml ]; then
-=======
 if [ -f Repos/cocina/docker-compose.yml ]; then
->>>>>>> Stashed changes
   echo "🔻 Apagando Microservicio Delivery..."
   (cd Repos/delivery && docker-compose -f docker-compose.yml down -v)
 fi
 
-<<<<<<< Updated upstream
-=======
 # Microservicio Delivery
 if [ -f Repos/contratacion/docker-compose.yml ]; then
   echo "🔻 Apagando Microservicio Contrato..."
   (cd Repos/contratacion && docker-compose -f docker-compose.yml down -v)
 fi
 
->>>>>>> Stashed changes
 # Microservicio2
 #if [ -f Repos/Microservicio2/docker-compose.yml ]; then
 #  echo "🔻 Apagando Microservicio2..."
