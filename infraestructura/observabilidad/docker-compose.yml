@@ -7,7 +7,7 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - observabilidad-net
+      - nur-network
 
   grafana:
     image: grafana/grafana:latest
@@ -17,7 +17,7 @@ services:
     depends_on:
       - prometheus
     networks:
-      - observabilidad-net
+      - nur-network
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
@@ -28,7 +28,7 @@ services:
       - "16686:16686"  # UI
       - "6831:6831/udp"  # Agente UDP (para OpenTelemetry)
     networks:
-      - observabilidad-net
+      - nur-network
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
@@ -43,7 +43,7 @@ services:
       - jaeger
       - prometheus
     networks:
-      - observabilidad-net
+      - nur-network
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -51,8 +51,8 @@ services:
     ports:
       - "9100:9100"
     networks:
-      - observabilidad-net
+      - nur-network
 
 networks:
-  observabilidad-net:
-    driver: bridge
+  nur-network:
+    external: true

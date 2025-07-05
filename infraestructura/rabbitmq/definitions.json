@@ -44,7 +44,7 @@
                 "durable": true
           }, 
           {
-		"name": "labeled-package",
+		"name": "package-created",
 		"vhost": "/",
 		"type": "fanout",
 		"durable": true
@@ -54,6 +54,31 @@
 		"vhost": "/",
 		"type": "fanout",
 		"durable": true
+          },
+	  {
+		"name": "meal-plan-created",
+		"vhost": "/",
+		"type": "fanout",
+		"durable": true
+          },
+          
+          {
+                "name": "calendar-created",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "delibery-update",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
+          },
+          {
+                "name": "delibery-delete",
+                "vhost": "/",
+                "type": "fanout",
+                "durable": true
           }
           
         ],
@@ -63,7 +88,12 @@
                 {"name": "contratacion-paciente-creado", "vhost": "/", "durable": true},
                 {"name": "evaluacion-diagnostico-realizado", "vhost": "/", "durable": true},
 		{"name": "nutritionalkitchen-labeled-package","vhost": "/","durable": true},
-		{"name": "nutritionalkitchen-recipe-created","vhost": "/","durable": true}
+		{"name": "RecipeCreated","vhost": "/","durable": true},
+		{"name": "MealPlanCreated","vhost": "/","durable": true},
+                {"name": "CalendarCreatedMessage", "vhost": "/", "durable": true},
+                {"name": "DeliveryDayUpdatedMessage", "vhost": "/","durable": true},
+                {"name": "DeliveryDayDeletedMessage", "vhost": "/","durable": true}
+                
         ],
         "bindings": [
                 {
@@ -95,7 +125,7 @@
                         "routing_key": ""
                 },
                 {
-			"source": "labeled-package",
+			"source": "package-created",
 			"vhost": "/",
 			"destination": "nutritionalkitchen-labeled-package",
 			"destination_type": "queue",
@@ -104,9 +134,37 @@
 		{
 			"source": "recipe-created",
 			"vhost": "/",
-			"destination": "nutritionalkitchen-recipe-created",
+			"destination": "RecipeCreated",
 			"destination_type": "queue",
 			"routing_key": ""
-		}
+		},
+		{
+			"source": "meal-plan-created",
+			"vhost": "/",
+			"destination": "MealPlanCreated",
+			"destination_type": "queue",
+			"routing_key": ""
+		},
+                {
+                        "source": "calendar-created",
+                        "vhost": "/",
+                        "destination": "CalendarCreatedMessage",
+                        "destination_type": "queue",
+                        "routing_key": ""
+                },
+                {
+                        "vhost": "/",
+                        "destination": "DeliveryDayUpdatedMessage",
+                        "destination_type": "queue",
+                        "source": "delibery-update",
+                        "routing_key": ""
+                },
+                {
+                        "source": "delibery-delete",
+                        "vhost": "/",
+                        "destination": "DeliveryDayDeletedMessage",
+                        "destination_type": "queue",
+                        "routing_key": ""
+                }
         ]
 }
