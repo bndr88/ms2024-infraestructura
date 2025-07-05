@@ -52,7 +52,7 @@ docker-compose -f ./infraestructura/rabbitmq/docker-compose.yml up -d --build
 
 # Levanta las herramientas para Observabilidad
 echo "Levantando Todo Para Observabilidad..."
-docker compose -f ./infraestructura/observabilidad/docker-compose.observabilidad.yml up -d
+docker compose -f ./infraestructura/observabilidad/docker-compose.yml up -d
 
 echo "✅ Infraestructura iniciada correctamente."
 
@@ -63,8 +63,14 @@ echo "🐙 Clonando repositorios desde GitHub..."
 # Clona los repositorios especificados en el archivo .env
 git clone --branch $RAMA_EVALUACION $REPO_EVALUACION ./Repos/evaluacion
 git clone --branch $RAMA_PLAN_ALIMENTICIO $REPO_PLAN_ALIMENTICIO ./Repos/plan
+<<<<<<< Updated upstream
 git clone $REPO_COCINA Repos/cocina
 git clone $REPO_DELIVERY Repos/delivery
+=======
+git clone --branch $RAMA_COCINA $REPO_COCINA Repos/cocina
+git clone --branch $RAMA_DELIVERY $REPO_DELIVERY Repos/delivery
+git clone --branch $RAMA_CONTRATO $REPO_CONTRATO Repos/contratacion
+>>>>>>> Stashed changes
 #git clone $REPO_MICROSERVICIO2 Repos/Microservicio2
 
 echo "🛠️ Levantando microservicios..."
@@ -85,6 +91,7 @@ sleep 5s
   docker-compose -f docker-compose.yml up -d --build
 )
  
+<<<<<<< Updated upstream
  (
    cd ./Repos/cocina
    echo "🔧 Levantando Microservicio Cocina..."
@@ -96,6 +103,25 @@ sleep 5s
    echo "🔧 Levantando Microservicio Delivery..."
    docker-compose -f docker-compose.yml up -d --build
  )
+=======
+(
+  cd ./Repos/cocina
+  echo "🔧 Levantando Microservicio Cocina..."
+  docker-compose -f docker-compose.yml up -d --build
+)
+
+(
+  cd ./Repos/delivery
+  echo "🔧 Levantando Microservicio Delivery..."
+  docker-compose -f docker-compose.yml up -d --build
+)
+
+(
+  cd ./Repos/contratacion
+  echo "🔧 Levantando Microservicio Contratato..."
+  docker-compose -f docker-compose.yml up -d --build
+)
+>>>>>>> Stashed changes
 
 #(
 #  cd ./Repos/Microservicio2

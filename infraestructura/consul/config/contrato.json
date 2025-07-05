@@ -1,0 +1,12 @@
+{
+  "service": {
+    "ID": "contrato",
+    "Name": "contrato",
+    "Address": "contracting-microservice",
+    "Port": 5000,
+    "Check": {
+      "HTTP": "http://contracting-microservice:5000/health",
+      "Interval": "10s"
+    }
+  }
+}
