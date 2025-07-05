@@ -3,9 +3,9 @@
     "ID": "delivery",
     "Name": "delivery",
     "Address": "nutritional-delibery",
-    "Port": 5000,
+    "Port": 5085,
     "Check": {
-      "HTTP": "http://nutritional-delibery:5000/health",
+      "HTTP": "http://nutritional-delibery:5085/health",
       "Interval": "10s"
     }
   }
