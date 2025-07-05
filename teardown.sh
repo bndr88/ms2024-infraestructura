@@ -33,7 +33,7 @@ fi
 # Infraestructura: Observabilidad
 if [ -f infraestructura/observabilidad/docker-compose.yml ]; then
   echo "🔻 Apagando observabilidad..."
-  docker-compose -f infraestructura/observabilidad/docker-compose.yml down -v
+  docker-compose -f infraestructura/observabilidad/docker-compose.yml down
 fi
 
 # Microservicio Identidad
